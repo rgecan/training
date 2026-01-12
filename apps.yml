@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: apps
-    repoURL: https://gitlab.com/tomkukral/training-model.git
+    repoURL: https://gitlab.com/rgecan/training.git
     targetRevision: HEAD
   syncPolicy:
     automated:
