@@ -1,0 +1,52 @@
+namespace: prometheus
+resources:
+- namespace.yml
+- rbac.yml
+- pvc.yml
+- ingress.yml
+- svc.yml
+- blackbox-exporter-deploy.yml
+- blackbox-exporter-svc.yml
+- kube-state-metrics.yml
+- prometheus.yml
+- alertmanager.yml
+- grafana.yml
+- karma.yml
+- node-exporter-ds.yml
+#- telegram-bot-sealed.yml
+#- telegram-bot.yml
+
+configMapGenerator:
+- name: prometheus-config
+  files:
+  - prometheus.yml=prometheus-config.yml
+- name: prometheus-rules
+  files:
+  - rules/etcd.yml
+  - rules/kube-state-metrics.yml
+  - rules/node-exporter.yml
+  - rules/prometheus.yml
+- name: grafana-config
+  files:
+  - grafana.ini=grafana-config.ini
+  - datasources.yml=grafana-datasources.yml
+  - dashboards.yml=grafana-dashboards.yml
+- name: karma-config
+  files:
+  - config.yml=karma-config.yml
+- name: alertmanager-config
+  files:
+  - config.yml=alertmanager-config.yml
+- name: grafana-dashboards
+  files:
+  - 1860.json=grafana-dashboard-1860-min.json
+- name: be-config
+  files:
+  - config.yml=blackbox-exporter-config.yml
+generatorOptions:
+  disableNameSuffixHash: false
+  labels:
+    generator: kustomize
+images:
+- name: docker.io/prom/prometheus
+  digest: sha256:3b9b2a15d376334da8c286d995777d3b9315aa666d2311170ada6059a517b74f
