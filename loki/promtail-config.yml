@@ -286,21 +286,21 @@ scrape_configs:
     - __meta_kubernetes_pod_container_name
     target_label: __path__
 
-#- job_name: systemd-journal
-#  journal:
-#    max_age: 12h
-#    labels:
-#      job: systemd-journal
-#      node: ${HOSTNAME}
-#  relabel_configs:
-#  - source_labels: ['__journal__systemd_unit']
-#    target_label: 'unit'
-#
-#- job_name: kubernetes-audit
-#  static_configs:
-#  - targets:
-#    - localhost
-#    labels:
-#      job: kubernetes-audit
-#      __path__: /var/log/kubernetes-audit/audit.log
-#      __host__: ${HOSTNAME}
+- job_name: systemd-journal
+  journal:
+    max_age: 12h
+    labels:
+      job: systemd-journal
+      node: ${HOSTNAME}
+  relabel_configs:
+  - source_labels: ['__journal__systemd_unit']
+    target_label: 'unit'
+
+- job_name: kubernetes-audit
+  static_configs:
+  - targets:
+    - localhost
+    labels:
+      job: kubernetes-audit
+      __path__: /var/log/kubernetes-audit/audit.log
+      __host__: ${HOSTNAME}
