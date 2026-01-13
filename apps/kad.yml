@@ -12,6 +12,8 @@ spec:
     helm:
       valuesObject:
         replicas: 1
+        prometheus:
+          enabled: pod
     path: helm
     repoURL: https://gitlab.com/6shore.net/kad.git
     targetRevision: HEAD
