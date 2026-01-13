@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: policy 
+  namespace: argo
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rgecan/training.git
+    targetRevision: HEAD
+    path: policy
+  destination:
+    name: in-cluster
+    namespace: kube-system
+  syncPolicy:
+    syncOptions:
+    - Validate=true
+    - CreateNamespace=true
